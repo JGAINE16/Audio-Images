@@ -10,19 +10,21 @@ let bgColor = 255; // Initial background color
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch); // Start pitch detection after mic starts
-  splash = new Splash
+  splash = new Splash ();
 }
 
 function draw() {
-  if (mouseIsPressed == true) {
+  if (mouseIsPressed == true && splash. update()==true) {
     mode = 1;
   }
   if (mode == 1) {
     splash.hide();
     
+  
     // Change the colorMode to HSB
     colorMode(HSB); // 360, 100, 100, 1.0
    // Define the color palette
