@@ -11,7 +11,7 @@ let bgColor = 255; // Initial background color
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
-  audioContext = getAudioContext();
+  audioContext = getAudioContext().suspend();
   mic = new p5.AudioIn();
   mic.start(startPitch); // Start pitch detection after mic starts
   splash = new Splash ();
@@ -20,11 +20,12 @@ function setup() {
 function draw() {
   if (mouseIsPressed == true && splash. update()==true) {
     mode = 1;
+    background(255)
   }
   if (mode == 1) {
     splash.hide();
     
-  
+    
     // Change the colorMode to HSB
     colorMode(HSB); // 360, 100, 100, 1.0
    // Define the color palette
@@ -45,7 +46,7 @@ function draw() {
   let g = random(0, 255);
   fill(r, b, g);
 
-  if (shape === false) {
+  if (shape === false && mode ==1) {
     ellipse(mouseX, mouseY, diameter);
   } else {
     rect(mouseX - diameter / 2, mouseY - diameter / 2, diameter, diameter);
@@ -78,15 +79,20 @@ function getPitch() {
 
 // Toggle shape on mouse press
 function mousePressed() {
+  if (!audioStarted) {
+    userStartAudio();
+    audioStarted = true;
+    mode = 1
+  }
   shape = !shape;
 }
 
 // Change background color on key press
 function keyPressed() {
   if (key === '1') {
-    bgColor = color(255, 193, 242); // Change background to pink
+    bgColor = color('rgb(240,217,221)'); // Change background to pink
   } else if (key === '2') {
-    bgColor = color(193, 255, 242); // Change background to turquoise
+    bgColor = color('rgb(219,241,219)'); // Change background to turquoise
   }
   background(bgColor);
 }
