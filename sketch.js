@@ -124,7 +124,7 @@ function mousePressed() {
   if (!audioStarted) {
     userStartAudio();
     audioStarted = true;
-    mode = 1
+    //mode = 1
   }
   shape = !shape;
 }
